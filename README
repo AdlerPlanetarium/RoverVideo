@@ -1,0 +1,56 @@
+Installation Instructions
+
+Make a directory for the scripts on the host computer
+mkdir ~/roverscripts
+
+Copy the directory to the host computer
+cp Rover\ Scripts/* ~/roverscripts
+
+Move to the directory with the install script
+cd ~/roverscripts
+
+Make sure the installation scrip is executable
+chmod +x install_video.sh
+
+Run the installation script with root privilages
+(These are necessary because it's installing programs to
+/usr/local/bin and modifying files in the /etc/ and /etc/init
+directories)
+sudo ./install_video.sh
+
+These were the steps I had to take to get the files to install on
+the rovers; however, it seems like it should be possible to simply 
+execute install_video.sh from the flash drive. Maybe I had mounted
+it incorrectly. Anyway the method above should work. 
+
+Usage:
+
+The streaming server is set up as an Ubuntu Upstart service, and 
+begins running as soon as the local filesystem is mounted and the
+networking is operational. It is set to respawn a new server if it 
+crashes. It uses the Ubuntu default we're it will try to respawn 
+10 times with a 5 second pause between each attempt. 
+
+If you need to start the server manually you can enter 
+sudo start video-server
+
+If you need to stop the server manually you can enter
+sudo stop video-server
+
+There is also a service, called video-cam, that sends video from the
+webcam to the server. It starts and stops automatically when the server
+starts. There should be no need to start/stop it independently of the
+server. 
+
+The server is accessible over port 8081 and produces two streams:
+webcam.flv and webcam.swf. Both should stream at a resolution of 
+480x320, which was selected because it seemed the best compromise
+between video lag and quality. 
+
+The complete URL for each steam is: 
+http://[ROVER_NAME or IP_ADDRESS]:8081/webcam.swf
+http://[ROVER_NAME or IP_ADDRESS]:8081/webcam.flv
+
+If you'd like to make changes to the quality/resolution/encoding 
+of the streams (or create more formats) you can edit ffserver configuration
+file at /etc/ffserver.conf. 
