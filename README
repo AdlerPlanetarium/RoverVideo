@@ -1,13 +1,10 @@
 Installation Instructions
 
-Make a directory for the scripts on the host computer
-mkdir ~/roverscripts
+Clone the repository:
+git clone https://github.com/AlderPlanetarium/RoverVideo
 
-Copy the directory to the host computer
-cp Rover\ Scripts/* ~/roverscripts
-
-Move to the directory with the install script
-cd ~/roverscripts
+cd into directory
+cd RoverVideo
 
 Make sure the installation scrip is executable
 chmod +x install_video.sh
